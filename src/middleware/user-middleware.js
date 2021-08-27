@@ -1,5 +1,7 @@
 const errorTypes = require('../constants/error-types')
 const service = require('../service/user-service')
+// 加密函数引入
+const md5password = require('../utils/password-handle')
 const verifyUse = async (ctx, next) => {
   const {name, password} = ctx.request.body;
   // 判断用户名密码不能为空
@@ -16,7 +18,15 @@ const verifyUse = async (ctx, next) => {
   } 
   await next()
 }
+// 密码加密
+const handlePassword = async (ctx, next) => {
+  let { password } = ctx.body;
+  password = md5password(password)
+  ctx.body.password = password
+  await next()
+}
 
 module.exports = {
-  verifyUse
+  verifyUse,
+  handlePassword
 }
