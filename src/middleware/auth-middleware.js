@@ -18,8 +18,6 @@ const verifyLogin = async (ctx, next) => {
   }
   // 判断密码是否和数据库的一致
   if(md5password(password) !== user.password) {
-    console.log(md5password(password))
-    console.log(user.password)
     const error = new Error(errorTypes.PASSWORD_IS_INCORRENT)
     return ctx.app.emit('error', error, ctx);
   }
