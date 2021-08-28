@@ -5,7 +5,7 @@ class UserService {
   // 用户注册数据库方法
   async create(user) {
     const {name, password} = user;
-    const statement = `INSERT INTO users (name,passwor) VALUES (?,?);`
+    const statement = `INSERT INTO users (name,password) VALUES (?,?);`
     const result = await connection.execute(statement, [name,password])
     // 把user存数据库
     return result;

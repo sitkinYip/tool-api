@@ -12,7 +12,7 @@ const verifyUse = async (ctx, next) => {
   // 判断用户名有没有被注册过
   const result = await service.getUserName(name)
   if(result.length) {
-    console.log(result)
+    // console.log(result)
     const error = new Error(errorTypes.USER_ALREADY_EXISTS)
     return ctx.app.emit('error', error, ctx)
   } 
@@ -20,9 +20,10 @@ const verifyUse = async (ctx, next) => {
 }
 // 密码加密
 const handlePassword = async (ctx, next) => {
-  let { password } = ctx.body;
+  let { password } = ctx.request.body;
+  // password = password+'yip'
   password = md5password(password)
-  ctx.body.password = password
+  ctx.request.body.password = password
   await next()
 }
 
