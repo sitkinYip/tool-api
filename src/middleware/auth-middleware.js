@@ -1,6 +1,8 @@
+const jwt = require('jsonwebtoken');
+const { PUBLIC_KEY } = require('../app/config');
 const errorTypes = require('../constants/error-types');
-const service = require('../service/user-service')
-const md5password = require('../utils/password-handle')
+const service = require('../service/user-service');
+const md5password = require('../utils/password-handle');
 const verifyLogin = async (ctx, next) => {
   // 获取用户名密码
   const { name, password } = ctx.request.body;
@@ -17,12 +19,31 @@ const verifyLogin = async (ctx, next) => {
     return ctx.app.emit('error', error, ctx);
   }
   // 判断密码是否和数据库的一致
-  if(md5password(password) !== user.password) {
-    const error = new Error(errorTypes.PASSWORD_IS_INCORRENT)
+  if (md5password(password) !== user.password) {
+    const error = new Error(errorTypes.PASSWORD_IS_INCORRENT);
     return ctx.app.emit('error', error, ctx);
   }
+  ctx.user = user;
   await next();
 };
+// 校验是否已授权
+const verifyAuth = async (ctx, next) => {
+  // 取出token
+  const authorization = ctx.headers.authorization;
+  const token = authorization.replace('Bearer ', '');
+  try {
+    // 验证token
+    const res = jwt.verify(token, PUBLIC_KEY, {
+      algorithms: ['RS256'],
+    });
+    ctx.user = res;
+    await next();
+  } catch (err) {
+    const error = new Error(errorTypes.UNAUTHORIZATION)
+    ctx.app.emit('error', error, ctx)
+  }
+};
 module.exports = {
-  verifyLogin
-}
+  verifyLogin,
+  verifyAuth,
+};
