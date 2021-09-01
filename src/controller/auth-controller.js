@@ -7,6 +7,7 @@ class AuthController {
   async login(ctx, next) {
     console.log(ctx.user);
     // const { id, name } = ctx.request.body;
+    /* 生成一个token给前端 */
     const { id, name } = ctx.user;
     const token = jwt.sign({id, name},PRIVATE_KEY,{
       expiresIn: 60*60*24*7,

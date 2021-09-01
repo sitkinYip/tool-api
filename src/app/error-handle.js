@@ -23,6 +23,10 @@ const errorHandle = (err, ctx) => {
       status = 400;
       message = '未授权或者token过期，请重新登录！';
       break;
+    case errorTypes.RECORD_NOT_NULL:
+      status = 400;
+      message = "备案不能为空!"
+      break;
     default:
       status = 404;
       message = '未知错误';
