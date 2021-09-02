@@ -16,10 +16,23 @@ class recordService {
     JSON_OBJECT('id', u.id, 'name', u.name) user
      FROM record r
     LEFT JOIN users u ON r.user_id = u.id
-    `
-    statement = statement +( id ? ' WHERE r.id = ?;' : ';');
+    `;
+    statement = statement + (id ? ' WHERE r.id = ?;' : ';');
     const result = await connection.execute(statement, id ? [id] : []);
     return result[0];
+  }
+  // 更新备案
+  async updateRecord(params) {
+    const { id, content } = params;
+    const statement = `UPDATE record SET content=? WHERE id=?;`;
+    const result = await connection.execute(statement, [content, id]);
+    return result;
+  }
+  // 删除备案
+  async deleteRecord(id) {
+    const statement = `DELETE FROM record WHERE id=?`
+    const result = await connection.execute(statement, [id]);
+    return result;
   }
 }
 

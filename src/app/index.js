@@ -1,6 +1,9 @@
+const path = require('path')
 const Koa = require('koa');
 // 引入参数解析插件
 const bodyParser = require('koa-bodyparser');
+// 静态资源解析
+const static = require('koa-static')
 //注册接口
 // const userRouter = require('../router/user-router');
 // 授权登录接口
@@ -10,6 +13,8 @@ const useRouter = require('../router/index')
 // 错误处理函数
 const errorHandle = require('./error-handle')
 const app = new Koa()
+//配置静态资源中间件
+app.use(static(path.join('./file')))
 // 注册一下参数解析插件即可应用到全局
 app.use(bodyParser())
 // 因为路由注册方法都一样 所以封装到router下的index.js里面用fs处理 

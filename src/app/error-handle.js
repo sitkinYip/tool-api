@@ -27,6 +27,14 @@ const errorHandle = (err, ctx) => {
       status = 400;
       message = "备案不能为空!"
       break;
+    case errorTypes.ID_NOT_NULL:
+      status = 400;
+      message = "id不能为空"
+      break;
+    case errorTypes.NAME_NOT_NULL:
+      status = 400;
+      message = "名称不能为空"
+      break;
     default:
       status = 404;
       message = '未知错误';

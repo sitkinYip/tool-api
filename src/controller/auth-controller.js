@@ -1,11 +1,9 @@
 const jwt = require('jsonwebtoken');
-const service = require('../service/user-service');
-const { PRIVATE_KEY,PUBLIC_KEY } = require('../app/config')
+const { PRIVATE_KEY } = require('../app/config')
 
 // 授权登录请求处理
 class AuthController {
   async login(ctx, next) {
-    console.log(ctx.user);
     // const { id, name } = ctx.request.body;
     /* 生成一个token给前端 */
     const { id, name } = ctx.user;
