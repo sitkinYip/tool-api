@@ -15,6 +15,12 @@ class uploadFile {
     const [result] = await connection.execute(statement, id?[id]:[]);
     return result
   }
+  // 校验参数是否存在
+  async validId(id) {
+    const statement = `SELECT * FROM footimg WHERE id=?;`
+    const result = await connection.execute(statement, [id]);
+    return result[0];
+  }
 }
 
 module.exports = new uploadFile();

@@ -30,9 +30,15 @@ class recordService {
   }
   // 删除备案
   async deleteRecord(id) {
-    const statement = `DELETE FROM record WHERE id=?`
+    const statement = `DELETE FROM record WHERE id=?;`
     const result = await connection.execute(statement, [id]);
     return result;
+  }
+  // 校验参数是否存在
+  async validId(id) {
+    const statement = `SELECT * FROM record WHERE id=?;`
+    const result = await connection.execute(statement, [id]);
+    return result[0];
   }
 }
 
