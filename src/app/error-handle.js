@@ -35,12 +35,20 @@ const errorHandle = (err, ctx) => {
       status = 400;
       message = "名称不能为空"
       break;
+    case errorTypes.ERROR_ALL:
+      status = 400;
+      message = "发生错误，请检查参数是否合法或者token是否过期！如您确保以上一切无误，请联系接口管理员！"
+      break;
     default:
       status = 404;
       message = '未知错误';
   }
   ctx.status = status;
-  ctx.body = message;
+  ctx.body = {
+    status: false,
+    code: -1,
+    message
+  };
 };
 
 module.exports = errorHandle;

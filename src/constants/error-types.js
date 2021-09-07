@@ -7,6 +7,7 @@ const UNAUTHORIZATION = 'unauthorization' // 无效token
 const RECORD_NOT_NULL = 'record_not_null' // 备案不能为空
 const ID_NOT_NULL = 'id_not_null' // id不能为空
 const NAME_NOT_NULL = "name_not_null" // 名称不能为空
+const ERROR_ALL = "error_all"
 
 module.exports = {
   NAME_OR_PASSWORD_IS_NOT_REQUIRED,
@@ -16,5 +17,6 @@ module.exports = {
   UNAUTHORIZATION,
   RECORD_NOT_NULL,
   ID_NOT_NULL,
-  NAME_NOT_NULL
+  NAME_NOT_NULL,
+  ERROR_ALL
 }
