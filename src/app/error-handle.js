@@ -39,6 +39,10 @@ const errorHandle = (err, ctx) => {
       status = 400;
       message = "发生错误，请检查参数是否合法或者token是否过期！如您确保以上一切无误，请联系接口管理员！"
       break;
+    case errorTypes.ERROR_UNAUTHORIZED:
+      status = 403;
+      message = "抱歉，您不具备相关权限！"
+      break;
     default:
       status = 404;
       message = '未知错误';
