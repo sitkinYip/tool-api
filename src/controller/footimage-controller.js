@@ -12,7 +12,6 @@ class footImg {
       status: true,
       result,
     };
-    JSON.stringify;
   }
   // 拿底图列表
   async getFootList(ctx, next) {
@@ -44,7 +43,6 @@ class footImg {
     if (!(id ? String(id).trim() : null)) {
       return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
     }
-    console.log(validId)
     let result = await validId(id);
     let list = result.map(({ id, filename, name, mimetype, size, user_id, createAt, updateAt }) => {
       return {
@@ -85,6 +83,8 @@ class footImg {
   async delFootImage(ctx, next) {
     const id = ctx.request.query.id;
     if (!(id ? id.trim() : null)) return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
+    const data = await validId(id);
+    if(!data[0]) return ctx.app.emit('error', new Error(errorTypes.ID_ERROR), ctx);
     const result = await delFootImage(id);
     ctx.body = {
       status: true,

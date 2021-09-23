@@ -21,33 +21,33 @@ class recordService {
     statement = statement + (id ? ' WHERE r.id = ?;' : ';');
     const result = await connection.execute(statement, id ? [id] : []);
     return result[0]; */
-    const result = await getList({
-      name,
-      page,
-      pageSize
-    },'record','content')
-    return result
-  }  
+    const result = await getList(
+      {
+        name,
+        page,
+        pageSize,
+      },
+      'record',
+      'content'
+    );
+    return result;
+  }
   // 更新备案
   async updateRecord(params) {
-    const { id, content } = params;
-    const statement = `UPDATE record SET content=? WHERE id=?;`;
-    const result = await connection.execute(statement, [content, id]);
+    const { id, content, user_id } = params;
+    const statement = `UPDATE record SET content=?,user_id=? WHERE id=?;`;
+    const result = await connection.execute(statement, [content, user_id, id]);
     return result;
   }
   // 删除备案
   async deleteRecord(id) {
-    const statement = `DELETE FROM record WHERE id=?;`
+    const statement = `DELETE FROM record WHERE id=?;`;
     const result = await connection.execute(statement, [id]);
     return result;
   }
-  async getRecordDetails(id) {
-
-  }
-  // 校验参数是否存在
+  // 拿详情及校验id是否存在
   async validId(id) {
-    const statement = `SELECT * FROM record WHERE id=?;`
-    console.log(statement)
+    const statement = `SELECT * FROM record WHERE id=?;`;
     const result = await connection.execute(statement, [id]);
     return result[0];
   }

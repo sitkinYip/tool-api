@@ -14,7 +14,7 @@ class record {
     const result = await createRecord({ userId, content });
     ctx.body = {
       status: true,
-      data: result,
+      result,
       message: '添加成功',
     };
   }
@@ -31,9 +31,10 @@ class record {
   // 更新备案列表
   async updateRecordData(ctx, next) {
     const { content, id } = ctx.request.body;
+    const user_id = ctx.user.id;
     if (!(id ? id.trim() : null)) return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
     if (!(content ? content.trim() : null)) return ctx.app.emit('error', new Error(errorTypes.RECORD_NOT_NULL), ctx);
-    const result = await updateRecord({ content, id });
+    const result = await updateRecord({ content, id, user_id });
     ctx.body = {
       status: true,
       result,
@@ -45,6 +46,9 @@ class record {
   async deleteRecord(ctx, next) {
     const id = ctx.request.query.id;
     if (!(id ? id.trim() : null)) return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
+    // 验证id是否存在
+    const data = await validId(id)
+    if(!data[0]) return ctx.app.emit('error', new Error(errorTypes.ID_ERROR), ctx);
     const result = await deleteRecord(id);
     ctx.body = {
       status: true,
@@ -58,7 +62,6 @@ class record {
     const id = ctx.request.query.id;
     console.log(id);
     if (!(id ? id.trim() : null)) return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
-    console.log(id)
     const result = await validId(id);
     ctx.body = {
       status: true,

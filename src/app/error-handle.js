@@ -43,6 +43,10 @@ const errorHandle = (err, ctx) => {
       status = 403;
       message = "抱歉，您不具备相关权限！"
       break;
+    case errorTypes.ID_ERROR:
+      status = 400;
+      message = "id不存在！"
+      break;
     default:
       status = 404;
       message = '未知错误';

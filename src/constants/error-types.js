@@ -9,6 +9,7 @@ const ID_NOT_NULL = 'id_not_null' // id不能为空
 const NAME_NOT_NULL = "name_not_null" // 名称不能为空
 const ERROR_ALL = "error_all"
 const ERROR_UNAUTHORIZED = 'error_unauthorized' // 未授权
+const ID_ERROR = 'id_error'
 
 module.exports = {
   NAME_OR_PASSWORD_IS_NOT_REQUIRED,
@@ -20,5 +21,6 @@ module.exports = {
   ID_NOT_NULL,
   NAME_NOT_NULL,
   ERROR_ALL,
-  ERROR_UNAUTHORIZED
+  ERROR_UNAUTHORIZED,
+  ID_ERROR
 }
