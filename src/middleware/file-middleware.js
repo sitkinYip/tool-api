@@ -1,13 +1,14 @@
 const path = require('path');
 const multer = require('koa-multer');
 const { FOOT_IMG_PATH } = require('../constants/file-path');
+const errorTypes = require('../constants/error-types');
 // 底图储存
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, FOOT_IMG_PATH);
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
+    cb(null, path.parse(file.originalname).name + '_' + Date.now() + path.extname(file.originalname));
   },
 });
 // 校验文件是否应该上传

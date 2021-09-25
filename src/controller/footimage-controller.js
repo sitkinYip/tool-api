@@ -11,6 +11,7 @@ class footImg {
     ctx.body = {
       status: true,
       result,
+      message: '添加成功！'
     };
   }
   // 拿底图列表
