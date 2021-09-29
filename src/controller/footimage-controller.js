@@ -1,6 +1,6 @@
 const errorTypes = require('../constants/error-types');
 const { createFootImg, footImgList, validId, updateFootImg, delFootImage } = require('../service/file-service');
-const { APP_PORT, MYSQL_HOST } = require('../app/config');
+const { STATIC_PATH } = require('../app/config');
 class footImg {
   // 新增一个底图
   async createFootImage(ctx, next) {
@@ -29,7 +29,7 @@ class footImg {
         user_id,
         createAt,
         updateAt,
-        url: MYSQL_HOST + ':' + APP_PORT + '/images/' + filename,
+        url:STATIC_PATH + '/images/' + filename,
       };
     });
     ctx.body = {
@@ -55,7 +55,7 @@ class footImg {
         user_id,
         createAt,
         updateAt,
-        url: MYSQL_HOST + ':' + APP_PORT + '/images/' + filename,
+        url:STATIC_PATH + '/images/' + filename,
       };
     });
     ctx.body = {

@@ -5,6 +5,7 @@ function isQuery(query) {
   return !(query ? String(query).trim() : null);
 }
 class template {
+  // 添加模板
   async createTemplate(ctx, next) {
     const { mimetype, filename, size } = ctx.req.file;
     const { name, template_url, platform_id } = ctx.req.body;
@@ -16,6 +17,7 @@ class template {
       message: '添加成功',
     };
   }
+  // 获取模板列表
   async getTemplateList(ctx, next) {
     const { name, page, pageSize, platform_id } = ctx.request.query;
     const result = await templateList({ name, page, pageSize, platform_id })
@@ -24,6 +26,7 @@ class template {
       result
     }
   }
+  // 模板详情
   async getTemplate(ctx, next) {
     const id = ctx.request.query.id;
     if(isQuery(id)) return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
@@ -33,6 +36,7 @@ class template {
       result,
     };
   }
+  // 删除模板
   async deleteTemplate(ctx, next) {
     const id = ctx.request.query.id;
     if(isQuery(id)) return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
@@ -43,6 +47,7 @@ class template {
       message: '删除成功！',
     };
   }
+  // 更新模板
   async updateTemplate(ctx, next) {
     const { mimetype, filename, size } = ctx.req.file;
     const { name, template_url, platform_id, id } = ctx.req.body;
