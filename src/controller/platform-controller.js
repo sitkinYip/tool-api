@@ -16,8 +16,11 @@ class platform {
     });
     ctx.body = {
       status: true,
-      data: result,
-      message: '添加成功',
+      data: {
+        result,
+      },
+      code: 200,
+      msg: '添加成功',
     };
   }
   // 拿平台列表
@@ -26,7 +29,11 @@ class platform {
     const result = await getPlatformList({ name, page, pageSize });
     ctx.body = {
       status: true,
-      ...result,
+      code: 200,
+      msg: '查询成功！',
+      data: {
+        ...result,
+      },
     };
   }
   // 拿平台详情
@@ -36,7 +43,11 @@ class platform {
     const result = await getDetails(id);
     ctx.body = {
       status: true,
-      result,
+      code: 200,
+      msg: '查询成功！',
+      data: {
+        result: result[0],
+      },
     };
   }
   // 删除一条平台数据
@@ -46,8 +57,11 @@ class platform {
     const result = await deletePlatform(id);
     ctx.body = {
       status: true,
-      result,
-      message: '平台已被删除！',
+      code: 200,
+      data: {
+        result,
+      },
+      msg: '平台数据已被删除！',
     };
   }
   // 更新平台
@@ -61,8 +75,9 @@ class platform {
     const result = await updatePlatform({ name, type_name, id, user_id });
     ctx.body = {
       status: true,
-      result,
-      message: '更新成功！',
+      code: 200,
+      data: { result },
+      msg: '更新成功！',
     };
   }
 }

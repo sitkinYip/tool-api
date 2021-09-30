@@ -13,38 +13,42 @@ class template {
     const result = await createTemplate({ mimetype, filename, size, name, template_url, platform_id, user_id });
     ctx.body = {
       status: true,
-      result,
-      message: '添加成功',
+      code: 200,
+      data: { result },
+      msg: '添加成功',
     };
   }
   // 获取模板列表
   async getTemplateList(ctx, next) {
     const { name, page, pageSize, platform_id } = ctx.request.query;
-    const result = await templateList({ name, page, pageSize, platform_id })
+    const result = await templateList({ name, page, pageSize, platform_id });
     ctx.body = {
       status: true,
-      result
-    }
+      code: 200,
+      data: { result },
+    };
   }
   // 模板详情
   async getTemplate(ctx, next) {
     const id = ctx.request.query.id;
-    if(isQuery(id)) return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
+    if (isQuery(id)) return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
     const result = await templateDetails(id);
     ctx.body = {
       status: true,
-      result,
+      code: 200,
+      data: { result: result[0] },
     };
   }
   // 删除模板
   async deleteTemplate(ctx, next) {
     const id = ctx.request.query.id;
-    if(isQuery(id)) return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
+    if (isQuery(id)) return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
     const result = await deleteTemplate(id);
     ctx.body = {
       status: true,
-      result,
-      message: '删除成功！',
+      code: 200,
+      data: { result },
+      msg: '删除成功！',
     };
   }
   // 更新模板
@@ -55,8 +59,9 @@ class template {
     const result = await updateTemplate({ name, template_url, platform_id, id, mimetype, filename, size, user_id });
     ctx.body = {
       status: true,
-      result,
-      message: '更新成功！',
+      code: 200,
+      data: { result },
+      msg: '更新成功！',
     };
   }
 }

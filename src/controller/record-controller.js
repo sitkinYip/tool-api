@@ -14,8 +14,9 @@ class record {
     const result = await createRecord({ userId, content });
     ctx.body = {
       status: true,
-      result,
-      message: '添加成功',
+      code: 200,
+      data: { result },
+      msg: '添加成功',
     };
   }
   // 拿备案列表
@@ -24,7 +25,8 @@ class record {
     const result = await getRecord(name, page, pageSize);
     ctx.body = {
       status: true,
-      ...result,
+      code: 200,
+      data: { ...result },
     };
   }
 
@@ -37,8 +39,9 @@ class record {
     const result = await updateRecord({ content, id, user_id });
     ctx.body = {
       status: true,
-      result,
-      message: '更新成功！',
+      code: 200,
+      data: { result },
+      msg: '更新成功！',
     };
   }
 
@@ -47,13 +50,14 @@ class record {
     const id = ctx.request.query.id;
     if (!(id ? id.trim() : null)) return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
     // 验证id是否存在
-    const data = await validId(id)
-    if(!data[0]) return ctx.app.emit('error', new Error(errorTypes.ID_ERROR), ctx);
+    const data = await validId(id);
+    if (!data[0]) return ctx.app.emit('error', new Error(errorTypes.ID_ERROR), ctx);
     const result = await deleteRecord(id);
     ctx.body = {
       status: true,
-      result,
-      message: '备案已被删除！',
+      code: 200,
+      data: { result },
+      msg: '备案已被删除！',
     };
   }
 
@@ -65,7 +69,8 @@ class record {
     const result = await validId(id);
     ctx.body = {
       status: true,
-      result
+      code: 200,
+      data: { result: result[0] },
     };
   }
 }

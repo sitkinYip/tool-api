@@ -10,8 +10,11 @@ class footImg {
     const result = await createFootImg({ name, mimetype, filename, size, user_id: ctx.user.id });
     ctx.body = {
       status: true,
-      result,
-      message: '添加成功！'
+      code: 200,
+      data:{
+        result
+      },
+      msg: '添加成功！'
     };
   }
   // 拿底图列表
@@ -34,8 +37,12 @@ class footImg {
     });
     ctx.body = {
       status: true,
-      list,
-      count: result.count,
+      code: 200,
+      msg: '查询成功！',
+      data: {
+        list,
+        count: result.count,
+      }
     };
   }
   // 底图列表详情
@@ -60,7 +67,11 @@ class footImg {
     });
     ctx.body = {
       status: true,
-      result: list[0],
+      code: 200,
+      msg: '查询成功！',
+      data: {
+        result: list[0],
+      }
     };
   }
   // 更新底图列表
@@ -76,8 +87,9 @@ class footImg {
     const result = await updateFootImg({ name, mimetype, filename, size, user_id: ctx.user.id, id });
     ctx.body = {
       status: true,
-      message: '更新成功',
-      result,
+      msg: '更新成功',
+      code: 200,
+      data:{result},
     };
   }
   // 删除底图
@@ -89,8 +101,10 @@ class footImg {
     const result = await delFootImage(id);
     ctx.body = {
       status: true,
-      message: '数据已被删除！',
-      result,
+      msg: '数据已被删除！',
+      data: {
+        result
+      },
     };
   }
 }
