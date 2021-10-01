@@ -8,7 +8,13 @@ class UserController {
      // 查询数据库
      const result = await service.create(user)
      // 返回数据
-     ctx.body = result
+     ctx.body = {
+       code: 200,
+       status: true,
+       data: {
+        result
+       }
+     }
   }
 }
 
