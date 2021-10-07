@@ -1,5 +1,4 @@
 const verifyData = (ctx, next) => {
-  console.log(ctx.request)
   next()
 }
 

@@ -3,7 +3,6 @@ const Router = require('koa-router');
 const { verifyAuth } = require('../middleware/auth-middleware');
 // 文件处理方法
 const { templateHandler } = require('../middleware/template-middleware');
-console.log(templateHandler);
 // ejs模板处理函数
 const {
   createTemplate,

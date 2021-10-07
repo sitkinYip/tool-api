@@ -18,6 +18,8 @@ class AuthController {
         id,
         name,
         token,
+        code: 200,
+        expire: Date.now()+60 * 60 * 24 * 7*1000,
       },
       status: true,
     };

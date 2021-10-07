@@ -20,7 +20,7 @@ const errorHandle = (err, ctx) => {
       message = '账号或者密码错误！';
       break;
     case errorTypes.UNAUTHORIZATION:
-      status = 400;
+      status = 403;
       message = '未授权或者token过期，请重新登录！';
       break;
     case errorTypes.RECORD_NOT_NULL:
@@ -55,7 +55,7 @@ const errorHandle = (err, ctx) => {
   ctx.body = {
     status: false,
     code: -1,
-    message
+    msg: message
   };
 };
 

@@ -32,9 +32,10 @@ class record {
 
   // 更新备案列表
   async updateRecordData(ctx, next) {
+    console.log(ctx.request.body)
     const { content, id } = ctx.request.body;
     const user_id = ctx.user.id;
-    if (!(id ? id.trim() : null)) return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
+    if (!(id ? String(id).trim() : null)) return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
     if (!(content ? content.trim() : null)) return ctx.app.emit('error', new Error(errorTypes.RECORD_NOT_NULL), ctx);
     const result = await updateRecord({ content, id, user_id });
     ctx.body = {
@@ -48,7 +49,7 @@ class record {
   // 删除备案
   async deleteRecord(ctx, next) {
     const id = ctx.request.query.id;
-    if (!(id ? id.trim() : null)) return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
+    if (!(id ? String(id).trim() : null)) return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
     // 验证id是否存在
     const data = await validId(id);
     if (!data[0]) return ctx.app.emit('error', new Error(errorTypes.ID_ERROR), ctx);
@@ -64,8 +65,7 @@ class record {
   // 拿详情
   async getRecordDetails(ctx, next) {
     const id = ctx.request.query.id;
-    console.log(id);
-    if (!(id ? id.trim() : null)) return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
+    if (!(id ? String(id).trim() : null)) return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
     const result = await validId(id);
     ctx.body = {
       status: true,

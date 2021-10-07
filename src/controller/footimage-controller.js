@@ -21,7 +21,6 @@ class footImg {
   async getFootList(ctx, next) {
     const { name, page, pageSize } = ctx.request.query;
     let result = await footImgList(name, page, pageSize);
-    // console.log(result)
     let list = result.result.map(({ id, filename, name, mimetype, size, user_id, createAt, updateAt }) => {
       return {
         id,
@@ -95,7 +94,7 @@ class footImg {
   // 删除底图
   async delFootImage(ctx, next) {
     const id = ctx.request.query.id;
-    if (!(id ? id.trim() : null)) return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
+    if (!(id ? String(id).trim() : null)) return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
     const data = await validId(id);
     if(!data[0]) return ctx.app.emit('error', new Error(errorTypes.ID_ERROR), ctx);
     const result = await delFootImage(id);

@@ -39,7 +39,7 @@ class platform {
   // 拿平台详情
   async getPlatformDetails(ctx, next) {
     const id = ctx.request.query.id;
-    if (!(id ? id.trim() : null)) return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
+    if (!(id ? String(id).trim() : null)) return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
     const result = await getDetails(id);
     ctx.body = {
       status: true,
@@ -53,7 +53,7 @@ class platform {
   // 删除一条平台数据
   async deletePlatform(ctx, next) {
     const id = ctx.request.query.id;
-    if (!(id ? id.trim() : null)) return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
+    if (!(id ? String(id).trim() : null)) return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
     const result = await deletePlatform(id);
     ctx.body = {
       status: true,
@@ -70,7 +70,7 @@ class platform {
     const user_id = ctx.user.id;
     // 拿平台类型名字和名字
     const { name, type_name, id } = ctx.request.body;
-    if (!(id ? id.trim() : null)) return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
+    if (!(id ? String(id).trim() : null)) return ctx.app.emit('error', new Error(errorTypes.ID_NOT_NULL), ctx);
     if (!name && !type_name) return ctx.app.emit('error', new Error(errorTypes.NAME_NOT_NULL), ctx);
     const result = await updatePlatform({ name, type_name, id, user_id });
     ctx.body = {
